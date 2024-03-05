@@ -1,0 +1,13 @@
+services:
+  attackbox:
+    image: kalilinux/kali-rolling
+  starthere:
+     build:
+       context: ./starthere
+     ports:
+       - "31337:31337"
+  web01:
+    build:
+      context: ./web01
+    ports:
+       - "80:80"
