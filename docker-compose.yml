@@ -1,13 +1,25 @@
+networks:
+    vuln_network:
+      ipam:
+        config:
+          - subnet: 10.0.0.0/24
+
 services:
   attackbox:
     image: kalilinux/kali-rolling
+    networks:
+      - vuln_network
   starthere:
      build:
        context: ./starthere
      ports:
        - "31337:31337"
+     networks:
+       - vuln_network
   web01:
     build:
       context: ./web01
     ports:
        - "80:80"
+    networks:
+       - vuln_network
