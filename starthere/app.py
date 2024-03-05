@@ -18,10 +18,9 @@ def main():
         while True:
             # Accept a new connection
             client_socket, client_address = server_socket.accept()
-            print(f"Connection from {client_address}")
 
             # Send a response to the client
-            client_socket.sendall(b"Hello from the server!")
+            client_socket.sendall(b"ctf{susp4ci0us_0pen_p0rt5}")
 
             # Close the connection
             client_socket.close()
