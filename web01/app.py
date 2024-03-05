@@ -1,15 +1,18 @@
-from flask import Flask, send_file
+from flask import Flask, send_file, request
+
+# ctf{s3cr3t_rout3}
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return "TODO"
+    return "TODO: This application is still under construction. NB! DO NOT USE IN PRODUCTION!"
 
 @app.route('/src/app.py')
 def return_file():
     # Path to the file you want to return
-    file_path = './app.py'
+    file_path = request.args.get('file') or './app.py'
+    print(file_path)
     return send_file(file_path)
 
 if __name__ == '__main__':
