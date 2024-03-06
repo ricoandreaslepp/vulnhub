@@ -1,24 +1,19 @@
 networks:
-    default:
-      name: vulnet
-      ipam:
-        config:
-          - subnet: 10.0.0.0/24
+  vulnet:
+    ipam:
+      config:
+        - subnet: 10.0.0.0/24
 
 services:
-  #attackbox:
-  #  image: kalilinux/kali-rolling
-  #  networks:
-  #    - vulnet
-  #starthere:
+  #starthere-demo:
   #   build:
   #     context: ./starthere
   #   ports:
   #     - "31337:31337"
   #   networks:
   #     - vulnet
-  web01:
+  web01-demo:
     build:
-      context: ./web01
-    ports:
-       - "80:80"
+      context: ./web01-demo
+    networks:
+      - vulnet
