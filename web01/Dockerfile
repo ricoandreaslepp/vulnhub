@@ -13,15 +13,16 @@ COPY . /app
 # install python deps
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN adduser kasutaja
+RUN adduser -D kasutaja
+RUN echo 'kasutaja:Passw0rd1!' | chpasswd
 # move flag from current dir to kasutaja's home
 RUN mv flag.txt /home/kasutaja
-RUN echo 'kasutaja:Passw0rd1!' | chpasswd
 
 # Expose the port that the application runs on
 EXPOSE 22 80
 
-RUN chmod 755 /app/entrypoint.sh
+#RUN chmod 755 /app/entrypoint.sh
 
 # Execute wrapper script
-CMD /app/entrypoint.sh
+#CMD ./entrypoint.sh
+CMD ["python", "app.py"]
