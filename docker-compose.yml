@@ -12,8 +12,16 @@ services:
   #     - "31337:31337"
   #   networks:
   #     - vulnet
-  web01-demo:
+  #web01-demo:
+  #  build:
+  #    context: ./web01-demo
+  #  networks:
+  #    - vulnet
+  web02:
     build:
-      context: ./web01-demo
+      context: ./web02
     networks:
       - vulnet
+    ports:
+      - "22:22"
+      - "1337:1337"
