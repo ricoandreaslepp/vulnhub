@@ -21,7 +21,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Expose the port that the application runs on
 EXPOSE 22 80
 
-RUN chmod 755 /app/entrypoint.sh
-
 # Execute wrapper script
 CMD /app/entrypoint.sh
