@@ -5,7 +5,7 @@ from flask import Flask, send_file, request
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
+def index():
     return "TODO: This application is still under construction. NB! DO NOT USE IN PRODUCTION!\n"
 
 @app.route('/src/app.py')
