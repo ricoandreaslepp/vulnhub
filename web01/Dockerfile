@@ -8,15 +8,15 @@ RUN apk update && apk add openssh-server
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY --chmod=777 . /app
+COPY . /app
 
 # install python deps
 RUN pip install --no-cache-dir -r requirements.txt
 
-#RUN adduser kasutaja
-#RUN mv flag.txt /home/kasutaja
-
-#RUN echo 'kasutaja:Passw0rd1!' | chpasswd
+RUN adduser kasutaja
+# move flag from current dir to kasutaja's home
+RUN mv flag.txt /home/kasutaja
+RUN echo 'kasutaja:Passw0rd1!' | chpasswd
 
 # Expose the port that the application runs on
 EXPOSE 22 80
