@@ -1,27 +1,30 @@
 networks:
   vulnet:
+    driver: bridge
     ipam:
       config:
         - subnet: 10.0.0.0/24
+          gateway: 10.0.0.1
 
 services:
-  #starthere-demo:
-  #   build:
-  #     context: ./starthere
-  #   ports:
-  #     - "31337:31337"
-  #   networks:
-  #     - vulnet
-  #web01-demo:
-  #  build:
-  #    context: ./web01-demo
-  #  networks:
-  #    - vulnet
-  web02:
+  starthere-demo:
+     build:
+       context: ./starthere-demo
+     networks:
+      vulnet:
+        ipv4_address: 10.0.0.5
+  web01-demo:
     build:
-      context: ./web02
+      context: ./web01-demo
     networks:
-      - vulnet
-    ports:
-      - "22:22"
-      - "1337:1337"
+      vulnet:
+        ipv4_address: 10.0.0.10
+  #web02:
+  #  build:
+  #    context: ./web02
+  #  networks:
+  #    vulnet:
+  #      ipv4_address: 10.0.0.1
+  #  ports:
+  #    - "22:22"
+  #    - "1337:1337"
