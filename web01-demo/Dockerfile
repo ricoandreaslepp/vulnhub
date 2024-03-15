@@ -4,9 +4,8 @@ FROM python:3-alpine
 # Install SSH server and required packages
 RUN apk update && \
     apk add --no-cache supervisor openssh-server && \
-    echo 'root:Passw0rd1!' | chpasswd && \
+    echo 'root:greenday' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-    sed -i 's/#MaxAuthTries 6/MaxAuthTries 4444/' /etc/ssh/sshd_config && \
     sed -i '/AllowTcpForwarding/d' /etc/ssh/sshd_config && \
     sed -i '/PermitOpen/d' /etc/ssh/sshd_config && \
     ssh-keygen -A
