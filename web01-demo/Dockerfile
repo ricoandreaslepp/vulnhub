@@ -26,7 +26,7 @@ COPY flag.txt /root/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose the ports that the applications run on
-EXPOSE 80
+EXPOSE 22 80
 
-# Execute wrapper script
+# Run supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
