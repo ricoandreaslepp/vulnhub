@@ -20,7 +20,7 @@ def main():
             client_socket, client_address = server_socket.accept()
 
             # Send a response to the client
-            client_socket.sendall(b"ctf{susp4ci0us_0pen_p0rt5}")
+            client_socket.sendall(b"ctf{susp4ci0us_0pen_p0rt5}\n")
 
             # Close the connection
             client_socket.close()
