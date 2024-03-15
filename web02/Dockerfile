@@ -3,10 +3,18 @@ FROM python:3-alpine
 
 # Install SSH server and required packages
 RUN apk update && \
-    apk add --no-cache openssh-server && \
-    echo 'root:markinho' | chpasswd && \
+    apk add --no-cache supervisor openssh-server && \
+    echo 'root:'$(xxd -l 10 -p /dev/urandom) | chpasswd && \
+    sed -i 's/#MaxAuthTries 6/MaxAuthTries 10/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+    sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i '/AllowTcpForwarding/d' /etc/ssh/sshd_config && \
+    sed -i '/PermitOpen/d' /etc/ssh/sshd_config && \
     ssh-keygen -A
+
+# sshd needs this directory to work
+RUN mkdir /var/run/sshd/
 
 # Set the working directory in the container
 WORKDIR /app
@@ -19,14 +27,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # move files
 COPY flag.txt /root/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # passphrase is 
-COPY id_rsa /root/.ssh/
-COPY id_rsa.pub /root/.ssh/authorized_keys
+COPY --chmod=644 id_rsa /root/.ssh/id_rsa
+COPY --chmod=600 id_rsa.pub /root/.ssh/authorized_keys
 
 # Expose the port that the application runs on
-EXPOSE 22 80
+EXPOSE 22 8080
 
-RUN chmod 755 ./entrypoint.sh
-
-# Execute wrapper script
-CMD ["/bin/sh", "./entrypoint.sh"]
+# Run supervisord
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

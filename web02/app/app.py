@@ -1,4 +1,8 @@
-from flask import Flask, send_file, request, jsonify
+from functools import wraps
+from flask import Flask, request, send_file, jsonify
+import os
+import re
+
 
 # ctf{1-h0w_d1d_y0u_f1nd_th1s}
 
@@ -10,12 +14,6 @@ def not_implemented(func):
         return jsonify({"message": "This endpoint is not implemented yet :/"}), 501
     return decorated_function
 
-def auth_required(func):
-    @wraps(func)
-    def decorated_function(*args, **kwargs):
-        return jsonify({"message": "Not authenticated!"}), 401
-    return decorated_function
-
 @app.route('/')
 def index():
     return jsonify({"message": "TODO: This application is still under construction. NB! DO NOT USE IN PRODUCTION!"})
@@ -25,29 +23,18 @@ def index():
 def uploads():
     pass
 
-@app.route('/files')
-@not_implemented
-def rolled():
-    pass
-
-@app.route('/this_is_an_endpoint/that_most_wordlists/would_not_find', methods=['GET', 'POST'])
-def secret():
+@app.route('/files', methods=['GET', 'POST'])
+def files():
     if request.method == "GET":
-        return jsonify({"Not so easy this time :)\n"})
-        
-    # Get the POST parameter containing the command
-    command = request.form.get('command')
-    # This should be enough for protection, right?
-    sanitized_command = re.sub(r'\s+', '', command)
-    # Execute the command using os.system()
-    os.system(sanitized_command)
-    return jsonify({"Command executed successfully."})
+        return jsonify({"message": "Please use POST requests with 'filename=<file>' in the request body, GET is not implemented yet!"})
+    
+    file_path = request.form.get('filename')
+    return send_file(file_path)
 
 @app.route('/admin')
 @not_implemented
-@auth_required
 def admin():
     pass
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=1337)
+    app.run(host='0.0.0.0', port=8080)
