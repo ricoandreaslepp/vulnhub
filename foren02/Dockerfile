@@ -20,8 +20,6 @@ FROM $BASE_IMG
 COPY --from=pidproxy /usr/bin/pidproxy /usr/bin/pidproxy
 RUN apk --no-cache add vsftpd tini supervisor openssh-server && \
     sed -i 's/#MaxAuthTries 6/MaxAuthTries 10/' /etc/ssh/sshd_config && \
-    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
-    sed -i 's/#PubkeyAuthentication no/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i '/AllowTcpForwarding/d' /etc/ssh/sshd_config && \
     sed -i '/PermitOpen/d' /etc/ssh/sshd_config && \
@@ -29,6 +27,12 @@ RUN apk --no-cache add vsftpd tini supervisor openssh-server && \
 
 COPY start_vsftpd.sh /bin/start_vsftpd.sh
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY woods.jpeg /home/
+COPY kinnine.zip /home/
+COPY flag.txt /root/
+
+RUN adduser --disabled-password kasutaja
+RUN echo 'kasutaja:isherenow' | chpasswd
 
 # Copy supervisord
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -36,6 +40,5 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 21 21000-21010
 VOLUME /ftp/ftp
 
-#ENTRYPOINT ["/sbin/tini", "--", "/bin/start_vsftpd.sh"]
 # Run supervisord
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
