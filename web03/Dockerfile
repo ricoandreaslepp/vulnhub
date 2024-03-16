@@ -3,9 +3,8 @@ FROM python:3-alpine
 
 # Install SSH server and required packages
 RUN apk update && \
-    apk add --no-cache openssh-server && \
-    apk add --no-cache iptables && \
-    echo 'root:markinho' | chpasswd && \
+    apk add --no-cache supervisor openssh-server && \
+    echo 'root:'$(xxd -l 10 -p /dev/urandom) | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     ssh-keygen -A
 
@@ -18,13 +17,16 @@ COPY ./app /app
 # install python deps
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN mkdir /opt/images
+COPY ./images /opt/images
+
 # move files
 COPY flag.txt /root/
+# Copy supervisord
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose the port that the application runs on
 EXPOSE 22 443
 
-RUN chmod 755 ./entrypoint.sh
-
-# Execute wrapper script
-CMD ["/bin/sh", "./entrypoint.sh"]
+# Run supervisord
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

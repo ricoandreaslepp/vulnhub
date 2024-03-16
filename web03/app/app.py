@@ -1,5 +1,6 @@
 from functools import wraps
 from flask import Flask, request, jsonify
+from secret_file import admin_endpoint
 
 # ctf{1-h0w_d1d_y0u_f1nd_th1s}
 
@@ -28,10 +29,15 @@ def index():
 def uploads():
     pass
 
-@app.route('/files')
-@not_implemented
-def rolled():
-    pass
+# @app.route('/files')
+# def files():
+#     if not 'filename' in request.args:
+#         return jsonify({'message': 'please supply filename in the GET parameter'})
+        
+#     name = request.args.get('filename')
+#     with open(f"/opt/images/{filename}".format()) as f:
+#         content = f.read()
+#     return content
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=443)

@@ -13,9 +13,6 @@ RUN apk update && \
     sed -i '/PermitOpen/d' /etc/ssh/sshd_config && \
     ssh-keygen -A
 
-# sshd needs this directory to work
-RUN mkdir /var/run/sshd/
-
 # Set the working directory in the container
 WORKDIR /app
 

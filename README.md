@@ -16,16 +16,12 @@
 * [ ] Test solution
 
 ### web03
-* [ ] Block all ICMP requests
 * [ ] Kuidas me lähtekoodi ründajale anname?
-* [ ] Kas peaks authenticationi ka tegema?
 * [ ] Test solution
 
 ### foren01
-* [ ] Test solution
+* [x] ~~Test solution~~
 
 ### foren02
 * [ ] Test solution
 
-### msf01
-* [ ] Test solution
