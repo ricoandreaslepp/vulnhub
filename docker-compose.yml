@@ -10,8 +10,6 @@ services:
   ssh-tunnels-demo:
     build:
       context:  ./ssh-tunnels-demo
-    ports:
-      - "8080:80"
   starthere-demo:
      build:
        context: ./starthere-demo

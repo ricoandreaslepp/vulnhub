@@ -27,9 +27,9 @@ RUN apk --no-cache add vsftpd tini supervisor openssh-server && \
 
 COPY start_vsftpd.sh /bin/start_vsftpd.sh
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
-COPY woods.jpeg /home/
-COPY kinnine.zip /home/
-COPY flag.txt /root/
+COPY woods.jpeg /home/kasutaja/
+COPY kinnine.zip /home/kasutaja/
+COPY flag.txt /
 
 RUN adduser --disabled-password kasutaja
 RUN echo 'kasutaja:isherenow' | chpasswd
