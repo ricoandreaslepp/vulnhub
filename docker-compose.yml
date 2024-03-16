@@ -18,9 +18,9 @@ services:
      networks:
       vulnet:
         ipv4_address: 10.0.0.5
-  web01-demo:
+  web01:
     build:
-      context: ./web01-demo
+      context: ./web01
     networks:
       vulnet:
         ipv4_address: 10.0.0.10
@@ -42,9 +42,9 @@ services:
     networks:
       vulnet:
         ipv4_address: 10.0.0.40
-  # foren02:
-  #   build:
-  #     context:  ./foren02
-  #   networks:
-  #     vulnet:
-  #       ipv4_address: 10.0.0.50
+  foren02:
+    build:
+      context:  ./foren02
+    networks:
+      vulnet:
+        ipv4_address: 10.0.0.50
