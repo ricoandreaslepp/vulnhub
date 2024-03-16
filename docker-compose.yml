@@ -7,41 +7,41 @@ networks:
           gateway: 10.0.0.1
 
 services:
-  # ssh-tunnels-demo:
-  #   build:
-  #     context:  ./ssh-tunnels-demo
-  #   ports:
-  #     - "80:80"
-  # starthere-demo:
-  #    build:
-  #      context: ./starthere-demo
-  #    networks:
-  #     vulnet:
-  #       ipv4_address: 10.0.0.5
-  # web01-demo:
-  #   build:
-  #     context: ./web01-demo
-  #   networks:
-  #     vulnet:
-  #       ipv4_address: 10.0.0.10
-  # web02:
-  #  build:
-  #    context: ./web02
-  #  networks:
-  #    vulnet:
-  #      ipv4_address: 10.0.0.20
-  web03:
+  ssh-tunnels-demo:
+    build:
+      context:  ./ssh-tunnels-demo
+    ports:
+      - "80:80"
+  starthere-demo:
+     build:
+       context: ./starthere-demo
+     networks:
+      vulnet:
+        ipv4_address: 10.0.0.5
+  web01-demo:
+    build:
+      context: ./web01-demo
+    networks:
+      vulnet:
+        ipv4_address: 10.0.0.10
+  web02:
    build:
-     context: ./web03
+     context: ./web02
    networks:
      vulnet:
-       ipv4_address: 10.0.0.30
-  # foren01:
-  #   build:
-  #     context:  ./foren01
-  #   networks:
-  #     vulnet:
-  #       ipv4_address: 10.0.0.40
+       ipv4_address: 10.0.0.20
+  # web03:
+  #  build:
+  #    context: ./web03
+  #  networks:
+  #    vulnet:
+  #      ipv4_address: 10.0.0.30
+  foren01:
+    build:
+      context:  ./foren01
+    networks:
+      vulnet:
+        ipv4_address: 10.0.0.40
   # foren02:
   #   build:
   #     context:  ./foren02
