@@ -1,4 +1,6 @@
-# vulnhub
+# Vulnhub
+
+A purposefully vulnerable network of docker containers.
 
 ## Usage
 
